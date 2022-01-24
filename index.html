@@ -5,20 +5,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz</title>
-    <link rel = "stylesheet" href="./assets/stylesheet.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel = "stylesheet" href="./assets/stylesheet.css"/>
 </head>
 <body>
     <header id="upper" class="container upper-center">
-        <div class="row">
-            <div>
+     <div class = "row">
+            <div class="col-md-6">
                 <span>Score: <span id="score">0</span></span>
             </div>
-            <div>
+            <div class="col-md-6">
                 <span>Time: <span id="timer">0</span></span>
             </div>
-        </div>
+     </div>
     </header>
-
+ <!-- Start Page -->
     <div id="start-screen" class="center">
         <h1 id="title">Quiz application</h1><br>
         <p>Wellcome to my Quiz Application!<br>Try to answer the following code-related
@@ -26,45 +27,43 @@
             Keep in mind that incorrect answer will penalize your time by 10 seconds!</p>
         <button id="startquiz" class=" button btn btn-info">Start Quiz</button>
     </div>
-
-    <div>
-        <div id=question-page class="center">
+<!-- Question Page -->
+    <div id="question-area">
+        <div id = question-page class="row center">
             <br><span id="questionBox"></span><br>
         </div>
-        <br>
-        <div class="center">
+        
+        <div class="row center">
             <div id="answerOptions" class="col-4 d-flex flex-column"></div>
         </div>
-        <div class="center">
+        <div class="row center">
             <span id="check-answer" class="col-4 d-flex flex-column"></span>
         </div>
     </div>
-
-    <div id="scoreResultPage" class="center hidden">
-
+<!-- Result Page wnich I tryed to hide on Start Page but it is still shown -->
+    <div id="scoreResultPage" class="center">
         <h2><strong>Finished</strong></h2><br>
         <h3 id="finalScore"></h3><br>
+<!-- Input Initials area -->
         <div class="center">
             <form>
-                <span>Enter initials: </span>
-                <input type="text" id="initials" />
-                <button id="submitBtn" class="btn btn-info">Submit</button>
-            </form>
+             <span>Enter initials: </span>
+             <input type="text" id="initials" />
+             <button id="submitBtn" class="btn btn-info">Submit</button>
+             </form>
         </div>
-    </div>
 
-    <div id="highscores" class="displayPage center hidden">
-        <h4><strong>Highscores</strong></h4><br>
-        <span id="highscoresResult"></span><br><br><br>
-        <div>
-            <span id ="viewHighscores"></span><br><br><br>
-            <a class="btn btn-info" role="button">Go Back</a>
+        <div id="highscores" class="displayPage center">
+             <h4><strong>Highscores</strong></h4><br>
+             <span id="highscoresResult"></span><br><br><br>
+             <span id ="viewHighscores"></span><br><br><br>
         </div>
-        <button class="btn btn-info" id="goBackBtn">Go Back</button>
-        <button class="btn btn-info" id="clearBtn">Clear Highscores</button>
-      
+<!-- Return and clean up buttons -->
+        <div>
+         <button class="btn btn-info" id="goBackBtn">Go Back</button>
+         <button class="btn btn-info" id="clearBtn">Clear Highscores</button>
+        </div>
     </div>
-    
 
     <script src="./script.js"></script>  
 </body>

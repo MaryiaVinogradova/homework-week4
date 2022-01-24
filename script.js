@@ -34,13 +34,15 @@ var questionBox = document.querySelector("#questionBox");
 var answerOptions = document.querySelector("#answerOptions");
 var submitBtn = document.querySelector("#submitBtn");
 var checkAnswer = document.querySelector("#check-answer");
-var score = document.querySelector("score");
+var score = document.querySelector("#score");
 var scoreResultPage = document.querySelector("#scoreResultPage");
-var finalScore = document.querySelector("#finalScore");
+
 
 var timeLeft = 75;
 var timeInterval = -1;
 var count = 0;
+
+
 
 function showQuestion(){
     questionBox.textContent = questions[count].question;
@@ -54,17 +56,18 @@ function showQuestion(){
         answerOptions.appendChild(list);
     }
 }
-
+//Function to start the quiz
 function gameQuiz(){
-     answerOptions.innerHTML= "";
-     checkAnswer.innerHTML ="";
-     startScreen.innerHTML="";
-     scoreResultPage.innerHTML="";
+     document.querySelector("#question-area").style.visibility = "visible";
+     document.querySelector("#scoreResultPage").style.visibility = "hidden";
+     answerOptions.textContent = "";
+     checkAnswer.textContent = "";
+     startScreen.style.visibility = "hidden";
 
     showQuestion();
 }
 
-
+// Function to proceed with questions
 answerOptions.addEventListener("click",function(event){
     event.preventDefault();
  
@@ -78,12 +81,16 @@ answerOptions.addEventListener("click",function(event){
     }
 
     if (checkQuestionsLeft()){
-        //show next question
+
         showQuestion();
     }
-}); 
+    else {
+        document.querySelector("#question-area").style.visibility = "hidden";
+        showResult();
+    }
+});
 
-
+//Function to stop questions running
 function checkQuestionsLeft (){
     count++; 
     if (count >= questions.length){
@@ -93,7 +100,7 @@ function checkQuestionsLeft (){
     } 
     return true;
 };
-
+//Function to count the score 
 function renderScore(){
     var scoreResult = localStorage.getItem("score");
     var initialsResult = localStorage.getItem("initials");
@@ -102,14 +109,19 @@ function renderScore(){
     localStorage.setItem("initials", initialsResult);
 };
 
-
+//Function to show results for the score. Input initials and submit. After call to Go back or refresh score buttons.
 function showResult(){
+
     scoreResultPage = document.querySelector("#scoreResultPage");
-    scoreResultPage.classList.add = "visible";
+    document.querySelector("#scoreResultPage").style.visibility = "visible";
+
    if (timeLeft<0){
        timeLeft = 0;
    }
-    finalScore = document.querySelector("#finalScore").textContent = score + "Your final score is " + timeLeft;
+
+    let finalScore = parseInt(count) + parseInt(timeLeft);
+    document.querySelector("#finalScore").textContent = "Your final score is: " + finalScore;
+
     document.querySelector("#timer").textContent = timeLeft;
 
     submitBtn.addEventListener("click",function(event){
@@ -123,34 +135,32 @@ function showResult(){
 
         renderScore();
 
-        // scoreResultPage.style.display = "none";
         scoreResultPage.classList.add = "visible";
         highscores.classList.add = "visible";
         
 
         var highscoresResult = document.querySelector("#highscoresResult");
-        highscoresResult.textContent = initialsResult + "-" + scoreResult;
-
+        highscoresResult.textContent = initialsResult + "-" + finalScore;
 
         document.querySelector("#clearBtn").addEventListener("click", function(){
-           highscoresResult.innerHTML = '<h4>Your Score is clear</h4>';
+          highscoresResult.textContent = "";
            document.querySelector("#clearBtn").style.display ="none";
            localStorage.clear();
            var upper =  document.querySelector("#upper");
            upper.setAttribute("class", "displayPage");
            upper.style.margin = "100px";
           
-        })
+          
+      })
 
         document.querySelector("#goBackBtn").addEventListener("click", function(){
-            location.reload();
+        location.reload();
           
         })
     });
 }
 
-
-
+//Start btn to return to start page and start
 startBtn.addEventListener("click", function(){
 
     if (timeInterval === -1){
