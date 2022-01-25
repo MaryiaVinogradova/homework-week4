@@ -36,7 +36,7 @@ var submitBtn = document.querySelector("#submitBtn");
 var checkAnswer = document.querySelector("#check-answer");
 var score = document.querySelector("#score");
 var scoreResultPage = document.querySelector("#scoreResultPage");
-
+document.querySelector("#scoreResultPage").style.visibility = "hidden";
 
 var timeLeft = 75;
 var timeInterval = -1;
@@ -59,7 +59,8 @@ function showQuestion(){
 //Function to start the quiz
 function gameQuiz(){
      document.querySelector("#question-area").style.visibility = "visible";
-     document.querySelector("#scoreResultPage").style.visibility = "hidden";
+
+    //  document.querySelector("#scoreResultPage").style.visibility = "hidden";
      answerOptions.textContent = "";
      checkAnswer.textContent = "";
      startScreen.style.visibility = "hidden";
@@ -73,15 +74,20 @@ answerOptions.addEventListener("click",function(event){
  
     if (event.target.getAttribute("data") === event.target.getAttribute("answers")) {
         checkAnswer.textContent = "correct!";
+        setInterval(function() {
+            checkAnswer.textContent = "";
+        }, 1000)
+
         
     } else {
         timeLeft = timeLeft - 10;
         checkAnswer.textContent = "wrong!";
-        
+        setInterval(function() {
+            checkAnswer.textContent = "";
+        }, 1000)
     }
 
     if (checkQuestionsLeft()){
-
         showQuestion();
     }
     else {
@@ -168,9 +174,8 @@ startBtn.addEventListener("click", function(){
             timeLeft--;
             time.textContent=timeLeft;
     if (timeLeft === 0 ){
-      
         clearInterval(timeInterval);
-        showResult();
+            showResult();
     }
         }, 1000);
     }
